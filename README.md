@@ -1,8 +1,6 @@
 # LogGen
 
-Repo under construction. Please contact me at prp1998@utexas.edu if you would like to use the log units
-
-#Introduction 
+# Introduction 
 
 Several applications like Deep Learning (DL), Image Processing, and Digital Signal Processing (DSP) rely on the frequent and efficient computation of the logarithm function. Many of these applications use lower precision floating-point datatypes like IEEE half-precision (FP16), bfloat16 (BF16), tensorfloat32 (TF32) instead of single-precision (FP32) and double-precision (FP64). This is because lower precision reduces the computational complexity and memory bandwidth required, albeit with a small degradation in accuracy. While developing logarithm units for FP32 and FP64 datatypes has received a lot of attention, not a lot of effort has been put into the designs of logarithm units for smaller datatypes. Also, different DL applications have different area, delay, memory, accuracy, and datatype requirements. A one-size-fits-all design cannot satisfy all these requirements. LogGen is an open-source, parameterized generator for generating logarithm unit implementations optimized for smaller floating-point datatypes. LogGen enables generation of designs by varying multiple knobs - precision, accuracy, base of logarithm, storage, and latency. It uses a flexible and efficient Look-Up Table (LUT) based architecture that leverages the small size of datatypes to optimize this architecture. 
 
@@ -10,11 +8,9 @@ Several applications like Deep Learning (DL), Image Processing, and Digital Sign
  
      https://lca.ece.utexas.edu/pubs/ISQED22_Patel.pdf
  
- You can also view the presentation on Youtube here:
- 
-     https://www.youtube.com/watch?v=oe2UdLfCCR8
+ You can also view the presentation on Youtube here: https://www.youtube.com/watch?v=oe2UdLfCCR8
 
-#Knobs
+# Knobs
 
 Precision: This knob defines the floating-point precision (datatype) supported by the generated design. It controls the exponent and mantissa width of the floating-point input. For example, if the input of the knob is f5,10g, then the generated LOG unit will be for FP16. This knob supports any positive exponent and mantissa bit-width values as inputs.
 
@@ -27,3 +23,10 @@ Storage: The LUT values can either be implemented using logic gates (LG) or can 
 
 Pipeline: This knob is used to choose between the different floating-point adder implementations. Currently, this knob is only valid for ASIC designs and can take two values - pipe or no pipe. There are two different implementations of the floating-point adder. The first one has been obtained from the Synopsys DesignWare IP library called DW_fp_addsub and the other one is a custom design called FP_AddSub that has been designed by us. Note: Currently, FP_AddSub has not been open-sourced. You can use your own floating point adder module by simply replacing the DW_fp_addsub module instantiation with your module. If you would like to use FP_AddSub module, please contact me at prp1998@utexas.edu
 
+# Makefile
+
+The following command can be run to generate a natural log unit for BF16 with Accuracy knob = 7 -
+    make EXPONENT=8 MANTISSA=7 ACCURACY=7 BASE=e 
+You can modify the knob values to generate the desired configuration
+
+Please report any bugs to prp1998@utexas.edu
