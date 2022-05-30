@@ -26,6 +26,7 @@ Pipeline: This knob is used to choose between the different floating-point adder
 # Makefile
 
 The following command can be run to generate a natural log unit for BF16 with Accuracy knob = 7 -
+
     make EXPONENT=8 MANTISSA=7 ACCURACY=7 BASE=e 
 You can modify the knob values to generate the desired configuration
 
